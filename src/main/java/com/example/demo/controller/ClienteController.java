@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.ClienteDTO;
 import com.example.demo.entity.Cliente;
 import com.example.demo.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,26 +10,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("cliente")
+@RequestMapping("clientes")
 public class ClienteController {
 
     @Autowired
     private ClienteService clienteService;
 
     @GetMapping
-    private List<ClienteDTO> listarClientes(){
+    private List<Cliente> listarClientes(){
         return clienteService.listarClientes();
     }
 
     @GetMapping("/{id}")
-    private ResponseEntity<ClienteDTO> buscarClientePorId(@PathVariable Long id){
+    private ResponseEntity<Cliente> buscarClientePorId(@PathVariable Long id){
         return clienteService.buscarById(id)
                 .map(cliente -> new ResponseEntity<>(cliente, HttpStatus.OK))
                 .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping
-    private ClienteDTO criarCliente(@RequestBody Cliente cliente){
+    private Cliente criarCliente(@RequestBody Cliente cliente){
         return clienteService.criarCliente(cliente);
     }
 
@@ -41,7 +40,7 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    private ClienteDTO atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente){
+    private Cliente atualizarCliente(@PathVariable Long id, @RequestBody Cliente cliente){
         return clienteService.atualizarCliente(id, cliente);
     }
 

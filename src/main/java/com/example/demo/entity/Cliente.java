@@ -1,39 +1,38 @@
 package com.example.demo.entity;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import java.util.List;
 
 @Entity
 public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long cliente_id;
     private String nome;
-    private String cpf;
     private String email;
-    private String dataNasc;
-    private String endereco;
-    private String telefone;
     private String senha;
+
+    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Tarefa> tarefas;
 
     public Cliente() {}
 
-    public Cliente(Long id, String nome, String cpf, String email, String dataNasc, String endereco, String telefone, String senha) {
-        this.id = id;
+    public Cliente(Long cliente_id, String nome, String email, String senha) {
+        this.cliente_id = cliente_id;
         this.nome = nome;
-        this.cpf = cpf;
         this.email = email;
-        this.dataNasc = dataNasc;
-        this.endereco = endereco;
-        this.telefone = telefone;
         this.senha = senha;
     }
 
-    public Long getId() {
-        return id;
+    public Long getCliente_id() {
+        return cliente_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setCliente_id(Long id) {
+        this.cliente_id = id;
     }
 
     public String getNome() {
@@ -44,14 +43,6 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -60,35 +51,19 @@ public class Cliente {
         this.email = email;
     }
 
-    public String getDataNasc() {
-        return dataNasc;
-    }
-
-    public void setDataNasc(String dataNasc) {
-        this.dataNasc = dataNasc;
-    }
-
-    public String getEndereco() {
-        return endereco;
-    }
-
-    public void setEndereco(String endereco) {
-        this.endereco = endereco;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
     public String getSenha() {
         return senha;
     }
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public List<Tarefa> getTarefas() {
+        return tarefas;
+    }
+
+    public void setTarefas(List<Tarefa> tarefas) {
+        this.tarefas = tarefas;
     }
 }
