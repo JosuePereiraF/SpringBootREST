@@ -27,7 +27,6 @@ public class TarefaService {
 
     public List<Tarefa> listarTarefas() {
         return tarefaRepository.findAll().stream()
-                .map(tarefa -> new Tarefa(tarefa.getId(), tarefa.getDescricao(), tarefa.isConcluida(), tarefa.getCliente().getCliente_id()))
                 .toList();
     }
 
